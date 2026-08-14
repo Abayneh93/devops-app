@@ -38,8 +38,8 @@ spec:
       - name: remote-app-container
         image: ghcr.io/abayneh93/devops-app:latest
         env:
-        - name: APP_VERSION
-          value: "v2.o"
+        - name: REPEAT_TEST
+          value: "v2"
         ports:
         - containerPort: 8000
         livenessProbe:
