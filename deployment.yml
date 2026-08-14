@@ -36,7 +36,18 @@ spec:
     spec:
       containers:
       - name: remote-app-container
-        image: nginx:alpine
+        image: ghcr.io/abayneh93/devops-app:latest
         ports:
         - containerPort: 8000
-
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 2
+          periodSeconds: 5
