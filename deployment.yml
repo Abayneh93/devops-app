@@ -11,7 +11,7 @@ metadata:
   name: remote-app-pod
 spec:
   containers:
-  - image: ghcr.io/abayneh93/devops-app:latest
+  - image: nginx:alpine
     name: remote-app
     ports:
     - containerPort: 8000
@@ -36,7 +36,7 @@ spec:
     spec:
       containers:
       - name: remote-app-container
-        image: ghcr.io/abayneh93/devops-app:latest
+        image: nginx:alpine
         ports:
         - containerPort: 8000
 
