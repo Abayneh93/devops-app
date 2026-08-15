@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: gitops-reconciler
+spec:
+  schedule: "*/2 * * * *"
+  concurrencyPolicy: Replace
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: sync-job
+            image: bitnami/kubectl:latest
+            command:
+            - /bin/sh
+            - -c
+            - |
+              echo "==> Fetching latest manifests from GitHub..."
+              mkdir -p /tmp/repo && cd /tmp/repo
+              curl -sL https://github.com/Abayneh93/devops-app/tarball/main | tar -xz --strip-components=1
+              echo "==> Applying Kubernetes manifests..."
+              kubectl apply -f deployment.yml
+              kubectl apply -f service.yml
+              echo "==> GitOps Sync Completed Successfully!"
+          restartPolicy: OnFailure
